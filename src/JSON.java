@@ -3,16 +3,40 @@ import java.lang.reflect.Field;
 public class JSON {
     private String content;
 
-    private JSON() {}
+    private JSON(String str) {
+        this.content = str;
+    }
 
     public static JSON fromObject(Object object) {
         Field[] fields = object.getClass().getDeclaredFields();
-        String content = "{";
+        StringBuilder content = new StringBuilder("{");
         String fieldName;
-        for (Field field : fields) {
+        String fieldValue;
+        Field field;
+        for (int i = 0; i < fields.length; i++) {
+            field = fields[i];
             fieldName = field.getName();
-            content = content.concat(String.format("\"%s\": ", fieldName));
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(object).toString();
+                content = content.append(String.format("\"%s\":\"%s\"", fieldName, fieldValue));
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+            if (i < fields.length - 1) {
+                content.append(",");
+            }
         }
-        return new JSON();
+        content.append("}");
+        return new JSON(content.toString());
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public String getPretty() {
+        StringBuilder sb = new StringBuilder(this.content);
+        return this.content.replaceAll("[:]", ": ");
     }
 }

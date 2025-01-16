@@ -12,8 +12,9 @@ public class Todo {
         }
         Optional<Priority> optPriority = (it.hasNext()) ? Priority.fromString(it.next()) : Optional.empty();
         Task task = new Task(name, optPriority);
-        System.out.printf("Created task \"%s\", Priority %s", task.getName(), task.getPriority());
-        JSON.fromObject(task);
+        System.out.printf("Created task \"%s\", Priority %s\n", task.getName(), task.getPriority());
+        JSON json = JSON.fromObject(task);
+        System.out.println(json.getPretty());
     }
 
     public static void handleListing(Iterator<String> it) {
