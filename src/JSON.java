@@ -34,9 +34,4 @@ public class JSON {
     public String getContent() {
         return this.content;
     }
-
-    public String getPretty() {
-        StringBuilder sb = new StringBuilder(this.content);
-        return this.content.replaceAll("[:]", ": ");
-    }
 }
