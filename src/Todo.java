@@ -35,6 +35,7 @@ public class Todo {
     }
 
     public static void main(String[] args) {
+        JSON.objectFromJSON(JSON.fromString("{\"texto\" : \"KKKKk\"}"), Task.class);
         handleArgs(args);
     }
 }
