@@ -19,7 +19,7 @@ public class JSON {
             try {
                 field.setAccessible(true);
                 fieldValue = field.get(object).toString();
-                content = content.append(String.format("\"%s\":\"%s\"", fieldName, fieldValue));
+                content.append(String.format("\"%s\":\"%s\"", fieldName, fieldValue));
             } catch (Exception e) {
                 System.err.println(e);
             }
