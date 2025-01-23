@@ -10,11 +10,12 @@ public class Todo {
             System.err.println("Invalid arguments");
             return;
         }
-        Optional<Priority> optPriority = (it.hasNext()) ? Priority.fromString(it.next()) : Optional.empty();
-        Task task = new Task(name, optPriority);
-        System.out.printf("Created task \"%s\", Priority %s\n", task.getName(), task.getPriority());
+        String nextArg = it.hasNext() ? it.next() : null;
+        Priority priority = nextArg == null || Priority.fromString(nextArg).isEmpty() ? Priority.NORMAL : Priority.fromString(nextArg).get();
+        Task task = new Task(name, priority, Status.PENDING);
+        System.out.printf("Created task \"%s\", Priority %s\n", task.name(), task.priority());
         JSON json = JSON.fromObject(task);
-        System.out.println(json.getPretty());
+        System.out.println(json.getContent());
     }
 
     public static void handleListing(Iterator<String> it) {
