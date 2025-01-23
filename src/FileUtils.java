@@ -11,7 +11,7 @@ public class FileUtils {
 
     public static void saveTask(Task task, String dataPath) {
         JSON json = JSON.fromObject(task);
-        String contentToWrite = fileIsEmpty(dataPath) ? json.getContent() : String.format(", %s", json.getContent());
+        String contentToWrite = fileIsEmpty(dataPath) ? json.getContent() : String.format(";%s", json.getContent());
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(dataPath, true))) {
             bufferedWriter.write(contentToWrite);
         } catch (IOException e) {
